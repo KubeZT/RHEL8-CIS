@@ -8,7 +8,7 @@ container_vars_file: is_container.yml
 os_check: true
 # rhel8cis is left off the front of this var for consistency in testing pipeline
 # system_is_ec2 toggle will disable tasks that fail on Amazon EC2 instances. Set true to skip and false to run tasks
-system_is_ec2: false
+system_is_ec2: true
 
 rhel8cis_section1: true
 rhel8cis_section2: true
@@ -152,7 +152,7 @@ rhel8cis_rule_1_1_2_7_4: true
 # DNF - Patching
 rhel8cis_rule_1_2_1: true
 rhel8cis_rule_1_2_2: true
-rhel8cis_rule_1_2_3: true
+rhel8cis_rule_1_2_3: false # Disable due to EPEL repo not signing repo metadata (missing .asc file on repo)
 rhel8cis_rule_1_2_4: true
 rhel8cis_rule_1_2_5: true
 
@@ -531,7 +531,12 @@ rhel8cis_crypto_policy_module: ''
 # 1.7
 # Warning Banner Content (issue, issue.net, motd)
 rhel8cis_warning_banner: |
-    Authorized uses only. All activity may be monitored and reported.
+    You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only. By using this IS (which includes any device attached to this IS), you consent to the following conditions:
+    -The USG routinely intercepts and monitors communications on this IS for purposes including, but not limited to, penetration testing, COMSEC monitoring, network operations and defense, personnel misconduct (PM), law enforcement (LE), and counterintelligence (CI) investigations.
+    -At any time, the USG may inspect and seize data stored on this IS.
+    -Communications using, or data stored on, this IS are not private, are subject to routine monitoring, interception, and search, and may be disclosed or used for any USG-authorized purpose.
+    -This IS includes security measures (e.g., authentication and access controls) to protect USG interests--not for your personal benefit or privacy.
+    -Notwithstanding the above, using this IS does not constitute consent to PM, LE or CI investigative searching or monitoring of the content of privileged communications, or work product, related to personal representation or services by attorneys, psychotherapists, or clergy, and their assistants. Such communications and work product are private and confidential. See User Agreement for details.
 # End Banner
 
 # 1.8 Gnome Desktop
@@ -710,7 +715,7 @@ rhel8cis_authselect_custom_profile_create: true
 
 # This variable configures the name of the custom profile to be created and selected.
 # To be changed from default - cis_example_profile
-rhel8cis_authselect_custom_profile_name: cis_example_profile
+rhel8cis_authselect_custom_profile_name: kubezt
 # Name of the existing authselect profile to copy - options can be found with
 # ```authselect list``` on the host to be configured
 rhel8cis_authselect_default_profile_to_copy: "sssd --symlink-meta"
